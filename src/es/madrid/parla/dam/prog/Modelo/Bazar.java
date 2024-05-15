@@ -11,5 +11,7 @@ public class Bazar extends Empleado {
         super(nombre, apellidos, dirrecion, telefono);
         //TODO Auto-generated constructor stub
     }
+
+  
     
 }

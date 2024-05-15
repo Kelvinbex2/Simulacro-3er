@@ -5,8 +5,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.madrid.parla.dam.prog.entrada.Entrada;
-
 public class Supermercados {
     private String nombre;
     private String dirreccion;
@@ -15,6 +13,10 @@ public class Supermercados {
     private List<Personal> personales;
     private List<Producto> productos;
 
+    public Supermercados() {
+        this.personales = new ArrayList<>();
+        this.productos = new ArrayList<>();
+    }
 
     public Supermercados(String nombre, String dirreccion, LocalDate date) {
         this.nombre = nombre;
@@ -131,13 +133,8 @@ public class Supermercados {
         }
     }
 
-    public void calcularPrecioIVa(){
-        System.out.println("Elege el Iva: ");
-        int opc = Entrada.leerEntero();
-        for (Producto producto : productos) {
-            producto.calcularPrecioIVa(opc);
-        }
+    public void comprar() {
+
     }
 
- 
 }

@@ -7,7 +7,7 @@ import es.madrid.parla.dam.prog.Modelo.Personal;
 public class FactoriaP {
 
 
-    public static Personal crearPartido(int opc) {
+    public static Personal crearPersonal(int opc) {
         switch (opc) {
             case 1:
                 return new Empleado(); 

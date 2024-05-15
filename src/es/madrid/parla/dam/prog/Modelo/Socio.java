@@ -11,19 +11,12 @@ public class Socio extends Cliente {
 
     }
 
-    public Socio(String nombre, String apellidos, String dirreccion, int numTarjeta, String fechaInscripcion) {
+    public Socio(String nombre, String apellidos, String dirreccion, String numTarjeta, String fechaInscripcion) {
         super(nombre, apellidos, dirreccion, numTarjeta);
-        this.idSocio = crearid();
         this.fechaInscripcion = fechaInscripcion;
+        this.idSocio = crearid();
     }
 
-    public static String getTIPO() {
-        return TIPO;
-    }
-
-    public static void setTIPO(String tIPO) {
-        TIPO = tIPO;
-    }
 
     public String getIdSocio() {
         return idSocio;

@@ -2,9 +2,9 @@ package es.madrid.parla.dam.prog.Modelo;
 
 public class Cliente extends Personal {
     protected String dirrexcion;
-    protected int numTarjeta;
+    protected String numTarjeta;
 
-    public Cliente(String nombre, String apellidos, String dirreccion, int numTarjeta) {
+    public Cliente(String nombre, String apellidos, String dirreccion, String numTarjeta) {
         super(nombre, apellidos);
         this.dirrexcion = dirreccion;
         this.numTarjeta = numTarjeta;
@@ -22,12 +22,21 @@ public class Cliente extends Personal {
         this.dirrexcion = dirrexcion;
     }
 
-    public int getNumTarjeta() {
+    public String getNumTarjeta() {
         return numTarjeta;
     }
 
-    public void setNumTarjeta(int numTarjeta) {
+    public void setNumTarjeta(String numTarjeta) {
         this.numTarjeta = numTarjeta;
+    }
+
+    public  String formatearUltimosDigitos(String num) {
+        String ultimosCuatroDigitos = numTarjeta.substring(numTarjeta.length() - 4);
+        
+        // Crear el formato deseado
+        String formatoDeseado = "**** **** **** " + ultimosCuatroDigitos;
+        
+        return formatoDeseado;
     }
 
 }

@@ -48,25 +48,23 @@ public class Producto {
         this.cantidad = cantidad;
     }
 
-    public void calcularPrecioIVa(int opc) {
-       
+    public double calcularPrecioIVa(int opc) {
+        double precios=0.0;
         if (opc == 1) {
-            this.precio = calcularPrecio() * Iva.IVANORMAL;
+            precios = calcularPrecio() * Iva.IVANORMAL;
         } else if (opc == 2) {
-            this.precio = calcularPrecio()  * Iva.IVAREDUCIDO;
+            precios = calcularPrecio() * Iva.IVAREDUCIDO;
         } else if (opc == 3) {
-            this.precio = calcularPrecio()  * Iva.IVASUPERREDUCIDO;
+            precios = calcularPrecio() * Iva.IVASUPERREDUCIDO;
         } else {
             System.out.println("No se ha seleccionado ninguna opción");
         }
-
+        return precios;
     }
 
-    public double calcularPrecio(){
-      return  this.precio = precio *cantidad;
+    public double calcularPrecio() {
+        return this.precio = precio * cantidad;
     }
-
-    public void calcularPrecioSinIva
 
     public void mostrarProducto() {
         System.out.println("Producto antes el iva: ");

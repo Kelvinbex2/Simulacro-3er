@@ -22,11 +22,13 @@ import es.madrid.parla.dam.prog.Modelo.Factorial.FactoriaCliente;
 import es.madrid.parla.dam.prog.Modelo.Factorial.FactoriaP;
 import es.madrid.parla.dam.prog.Modelo.Factorial.FactorialEmpleado;
 import es.madrid.parla.dam.prog.Modelo.Factorial.FactorialProducto;
+import es.madrid.parla.dam.prog.Ticket.Ticket;
 import es.madrid.parla.dam.prog.entrada.Entrada;
 
 public class App {
     static Supermercados supers;
     static ArrayList<Supermercados> sup = new ArrayList<>();
+    static Ticket ticket = new Ticket();
 
     public static void main(String[] args) throws Exception {
         menu();
@@ -40,6 +42,7 @@ public class App {
             System.out.println("3. Eliminar empleados");
             System.out.println("4. Crear producto");
             System.out.println("5. Eliminar producto");
+            System.out.println("6. Generar Ticket");
             System.out.println("0. Salir");
             System.out.println("Elegir una opcion");
             opc = Entrada.leerEntero();
@@ -58,6 +61,10 @@ public class App {
                     break;
                 case 5:
                     eliminarProd();
+
+                case 6:
+                    ticket.resumen();
+                    break;
 
                 case 0:
                     System.out.println("Hasta luego!");
@@ -95,8 +102,8 @@ public class App {
         Personal personal = null;
         System.out.println("1. Empleado \n2. Cliente");
         int opc = Entrada.leerEntero();
-        FactoriaP.crearPartido(opc);
-        if (FactoriaP.crearPartido(opc) instanceof Empleado && opc == 1) {
+        FactoriaP.crearPersonal(opc);
+        if (FactoriaP.crearPersonal(opc) instanceof Empleado && opc == 1) {
             System.out.print("Introduce el nombre del Empleado: ");
             String nombre = Entrada.leerString();
             System.out.print("Introduce el apellido del Empleado: ");
@@ -116,27 +123,29 @@ public class App {
             if (FactorialEmpleado.crearEmpleado(opcion) instanceof Fruteria && opcion == 1) {
                 personal = new Fruteria(nombre, apellido, direccion, telefono);
 
-            } else if (FactorialEmpleado.crearEmpleado(opcion) instanceof Fruteria && opcion == 2) {
+            } else if (FactorialEmpleado.crearEmpleado(opcion) instanceof Pescadaria && opcion == 2) {
                 personal = new Pescadaria(nombre, apellido, direccion, telefono);
 
-            } else if (FactorialEmpleado.crearEmpleado(opcion) instanceof Fruteria && opcion == 3) {
+            } else if (FactorialEmpleado.crearEmpleado(opcion) instanceof Bazar && opcion == 3) {
                 personal = new Bazar(nombre, apellido, direccion, telefono);
 
-            } else if (FactorialEmpleado.crearEmpleado(opcion) instanceof Fruteria && opcion == 4) {
+            } else if (FactorialEmpleado.crearEmpleado(opcion) instanceof Carniceria && opcion == 4) {
                 personal = new Carniceria(nombre, apellido, direccion, telefono);
 
-            } else if (FactorialEmpleado.crearEmpleado(opcion) instanceof Fruteria && opcion == 5) {
+            } else if (FactorialEmpleado.crearEmpleado(opcion) instanceof Electrodomestico && opcion == 5) {
                 personal = new Electrodomestico(nombre, apellido, direccion, telefono);
-            } else if (FactorialEmpleado.crearEmpleado(opcion) instanceof Fruteria && opcion == 6) {
+            } else if (FactorialEmpleado.crearEmpleado(opcion) instanceof Frescos && opcion == 6) {
                 personal = new Frescos(nombre, apellido, direccion, telefono);
-            } else if (FactorialEmpleado.crearEmpleado(opcion) instanceof Fruteria && opcion == 7) {
+            } else if (FactorialEmpleado.crearEmpleado(opcion) instanceof Limpieza && opcion == 7) {
                 personal = new Limpieza(nombre, apellido, direccion, telefono);
             }
 
         } else {
-            System.out.print("1.Socio\n2.Invitado\n Elegir una: ");
+            System.out.print("1.Socio\n2.Invitado\nElegir una: ");
             int opc3 = Entrada.leerEntero();
+
             FactoriaCliente.crearProducto(opc3);
+
             System.out.print("Introduce el nombre del cliente: ");
             String nombre = Entrada.leerString();
             System.out.print("Introduce el apellido del cliente: ");
@@ -144,12 +153,13 @@ public class App {
             System.out.println("Introduce el dirrecion del cliente: ");
             String direccion = Entrada.leerString();
             System.out.println("Introduce el numTarjeta del cliente: ");
-            int numTarjeta = Entrada.leerEntero();
+            String numTarjeta = Entrada.leerString();
             System.out.println("Introduce la Fecha de inscripcion: ");
-            String fecha = Entrada.leerString();
-            if (FactoriaCliente.crearProducto(opc3) instanceof Socio && opc3 == 1) {
+            String fechaInscripcion = Entrada.leerString();
 
-                personal = new Socio(nombre, apellido, direccion, numTarjeta, fecha);
+            if (FactoriaCliente.crearProducto(opc3) instanceof Socio ) {
+
+                personal = new Socio(nombre, apellido, direccion, numTarjeta, fechaInscripcion);
             } else {
                 personal = new Invitado(nombre, apellido, direccion, numTarjeta);
             }
@@ -160,44 +170,37 @@ public class App {
     public static void eliminarEmpleado() {
         System.out.print("Introduce el nombre del empleado a eliminar: ");
         String nombre = Entrada.leerString();
-        boolean exist = false;
+        boolean empleadoEliminado = false;
+
         for (Personal p : supers.getPersonales()) {
-            if (p.getNombre().equalsIgnoreCase(nombre) && p instanceof Fruteria) {
+            if (p.getNombre().equalsIgnoreCase(nombre)) {
                 supers.eliminar(p);
-                exist = true;
-                break;
-            } else if (p.getNombre().equalsIgnoreCase(nombre) && p instanceof Pescadaria) {
-                supers.eliminar(p);
-                exist = true;
-                break;
-            } else if (p.getNombre().equalsIgnoreCase(nombre) && p instanceof Bazar) {
-                supers.eliminar(p);
-                exist = true;
-                break;
-            } else if (p.getNombre().equalsIgnoreCase(nombre) && p instanceof Carniceria) {
-                supers.eliminar(p);
-                exist = true;
-                break;
-            } else if (p.getNombre().equalsIgnoreCase(nombre) && p instanceof Electrodomestico) {
-                supers.eliminar(p);
-                exist = true;
-                break;
-            } else if (p.getNombre().equalsIgnoreCase(nombre) && p instanceof Frescos) {
-                supers.eliminar(p);
-                exist = true;
-                break;
-            } else if (p.getNombre().equalsIgnoreCase(nombre) && p instanceof Limpieza) {
-                supers.eliminar(p);
-                exist = true;
+                empleadoEliminado = true;
                 break;
             }
-
         }
 
-        if (!exist) {
-            System.out.println("No existe");
+        if (!empleadoEliminado) {
+            System.out.println("Empleado no encontrado.");
+        }
+    }
+
+    public static void eliminarProd() {
+        System.out.print("Escribe el nombre del producto a eliminar: ");
+        String nombre = Entrada.leerString();
+        boolean productoEliminado = false;
+
+        for (Producto p : supers.getProductos()) {
+            if (p.getNombre().equalsIgnoreCase(nombre)) {
+                supers.eliminarProd(p);
+                productoEliminado = true;
+                break;
+            }
         }
 
+        if (!productoEliminado) {
+            System.out.println("Producto no encontrado.");
+        }
     }
 
     public static void agregarProducto() {
@@ -225,26 +228,6 @@ public class App {
         }
         supers.agregarProducto(producto);
 
-    }
-
-    public static void eliminarProd() {
-        System.out.println("Escribe el nombre a eliminar");
-        String nombre = Entrada.leerString();
-        boolean exist = false;
-        for (Producto p : supers.getProductos()) {
-            if (nombre.equalsIgnoreCase(nombre) && p instanceof Articulos) {
-                supers.eliminarProd(p);
-                exist = true;
-                break;
-            } else if (nombre.equalsIgnoreCase(p.getNombre()) && p instanceof Servicio) {
-                supers.eliminarProd(p);
-                exist = true;
-                break;
-            }
-        }
-        if (!exist) {
-            System.out.println("No existe el Producto");
-        }
     }
 
 }
