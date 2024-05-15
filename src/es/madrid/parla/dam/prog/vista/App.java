@@ -2,35 +2,25 @@ package es.madrid.parla.dam.prog.vista;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-
-import es.madrid.parla.dam.prog.Modelo.Articulos;
-import es.madrid.parla.dam.prog.Modelo.Bazar;
-import es.madrid.parla.dam.prog.Modelo.Carniceria;
-import es.madrid.parla.dam.prog.Modelo.Electrodomestico;
+import es.madrid.parla.dam.prog.Modelo.Cliente;
 import es.madrid.parla.dam.prog.Modelo.Empleado;
-import es.madrid.parla.dam.prog.Modelo.Frescos;
-import es.madrid.parla.dam.prog.Modelo.Fruteria;
 import es.madrid.parla.dam.prog.Modelo.Invitado;
-import es.madrid.parla.dam.prog.Modelo.Limpieza;
 import es.madrid.parla.dam.prog.Modelo.Personal;
-import es.madrid.parla.dam.prog.Modelo.Pescadaria;
 import es.madrid.parla.dam.prog.Modelo.Producto;
-import es.madrid.parla.dam.prog.Modelo.Servicio;
 import es.madrid.parla.dam.prog.Modelo.Socio;
 import es.madrid.parla.dam.prog.Modelo.Supermercados;
 import es.madrid.parla.dam.prog.Modelo.Factorial.FactoriaCliente;
-import es.madrid.parla.dam.prog.Modelo.Factorial.FactoriaP;
 import es.madrid.parla.dam.prog.Modelo.Factorial.FactorialEmpleado;
 import es.madrid.parla.dam.prog.Modelo.Factorial.FactorialProducto;
-import es.madrid.parla.dam.prog.Ticket.Ticket;
 import es.madrid.parla.dam.prog.entrada.Entrada;
 
 public class App {
     static Supermercados supers;
     static ArrayList<Supermercados> sup = new ArrayList<>();
-    static Ticket ticket = new Ticket();
 
     public static void main(String[] args) throws Exception {
+        supers = new Supermercados("Nom", "ss", crearDate());
+        sup.add(supers);
         menu();
     }
 
@@ -63,7 +53,7 @@ public class App {
                     eliminarProd();
 
                 case 6:
-                    ticket.resumen();
+                    venta();
                     break;
 
                 case 0:
@@ -102,8 +92,8 @@ public class App {
         Personal personal = null;
         System.out.println("1. Empleado \n2. Cliente");
         int opc = Entrada.leerEntero();
-        FactoriaP.crearPersonal(opc);
-        if (FactoriaP.crearPersonal(opc) instanceof Empleado && opc == 1) {
+
+        if (opc == 1) {
             System.out.print("Introduce el nombre del Empleado: ");
             String nombre = Entrada.leerString();
             System.out.print("Introduce el apellido del Empleado: ");
@@ -114,37 +104,20 @@ public class App {
             String direccion = Entrada.leerString();
 
             System.out.println(
-                    "1.Fruteria \n2.Pescaderia \n3.Bazar \n4.Caniceria \n5.Electrodomesticos \n6.Frescos \n7.Limpieza");
+                    "1. Fruteria \n2. Pescaderia \n3. Bazar \n4. Carniceria \n5. Electrodomesticos \n6. Frescos \n7. Limpieza");
             System.out.print("Elige una opcion: ");
             int opcion = Entrada.leerEntero();
 
-            FactorialEmpleado.crearEmpleado(opcion);
+            Empleado empleado = FactorialEmpleado.crearEmpleado(opcion);
+            empleado.setNombre(nombre);
+            empleado.setApellidos(apellido);
+            empleado.setDireccion(direccion);
+            empleado.setTelefono(telefono);
 
-            if (FactorialEmpleado.crearEmpleado(opcion) instanceof Fruteria && opcion == 1) {
-                personal = new Fruteria(nombre, apellido, direccion, telefono);
-
-            } else if (FactorialEmpleado.crearEmpleado(opcion) instanceof Pescadaria && opcion == 2) {
-                personal = new Pescadaria(nombre, apellido, direccion, telefono);
-
-            } else if (FactorialEmpleado.crearEmpleado(opcion) instanceof Bazar && opcion == 3) {
-                personal = new Bazar(nombre, apellido, direccion, telefono);
-
-            } else if (FactorialEmpleado.crearEmpleado(opcion) instanceof Carniceria && opcion == 4) {
-                personal = new Carniceria(nombre, apellido, direccion, telefono);
-
-            } else if (FactorialEmpleado.crearEmpleado(opcion) instanceof Electrodomestico && opcion == 5) {
-                personal = new Electrodomestico(nombre, apellido, direccion, telefono);
-            } else if (FactorialEmpleado.crearEmpleado(opcion) instanceof Frescos && opcion == 6) {
-                personal = new Frescos(nombre, apellido, direccion, telefono);
-            } else if (FactorialEmpleado.crearEmpleado(opcion) instanceof Limpieza && opcion == 7) {
-                personal = new Limpieza(nombre, apellido, direccion, telefono);
-            }
-
-        } else {
-            System.out.print("1.Socio\n2.Invitado\nElegir una: ");
+            personal = empleado;
+        } else if (opc == 2) {
+            System.out.print("1. Socio\n2. Invitado\nElegir una: ");
             int opc3 = Entrada.leerEntero();
-
-            FactoriaCliente.crearProducto(opc3);
 
             System.out.print("Introduce el nombre del cliente: ");
             String nombre = Entrada.leerString();
@@ -157,13 +130,20 @@ public class App {
             System.out.println("Introduce la Fecha de inscripcion: ");
             String fechaInscripcion = Entrada.leerString();
 
-            if (FactoriaCliente.crearProducto(opc3) instanceof Socio ) {
+            Cliente cliente = (Cliente) FactoriaCliente.crearCliente(opc3);
+            cliente.setNombre(nombre);
+            cliente.setApellidos(apellido);
+            cliente.setDirrexcion(direccion);
 
-                personal = new Socio(nombre, apellido, direccion, numTarjeta, fechaInscripcion);
-            } else {
-                personal = new Invitado(nombre, apellido, direccion, numTarjeta);
+            if (cliente instanceof Socio) {
+                Socio socio = (Socio) cliente;
+                socio.setNumTarjeta(numTarjeta);
+                socio.setFechaInscripcion(fechaInscripcion);
             }
+
+            personal = cliente;
         }
+
         supers.agregarPersonal(personal);
     }
 
@@ -205,29 +185,99 @@ public class App {
 
     public static void agregarProducto() {
         Producto producto = null;
-        System.out.print("1.Articulos \n2.Servicio \nElegir una opcion: ");
+    
+        System.out.print("1. Articulos\n2. Servicio\nElige una opción: ");
         int opcion = Entrada.leerEntero();
-        FactorialProducto.crearProducto(opcion);
-        if (FactorialProducto.crearProducto(opcion) instanceof Articulos && opcion == 1) {
-            System.out.print("Introduce el nombre del articulo: ");
+    
+        // Utilizar la factorial para crear el tipo de producto seleccionado
+        producto = FactorialProducto.crearProducto(opcion);
+    
+        if (producto != null) {
+            // Pedir los detalles específicos del producto al usuario
+            System.out.print("Introduce el nombre del producto: ");
             String nombre = Entrada.leerString();
-            System.out.print("Introduce el precio del articulo: ");
+            System.out.print("Introduce el precio del producto: ");
             double precio = Entrada.leerDouble();
-            System.out.print("Introduce la cantidad del articulo: ");
+            System.out.print("Introduce la cantidad del producto: ");
             int cantidad = Entrada.leerEntero();
-            producto = new Articulos(nombre, nombre, precio, cantidad);
-
+    
+            // Establecer los detalles del producto creado
+            producto.setNombre(nombre);
+            producto.setPrecio(precio);
+            producto.setCantidad(cantidad);
+    
+            // Agregar el producto al supermercado (supers)
+            supers.agregarProducto(producto);
+            System.out.println("Producto agregado con éxito.");
         } else {
-            System.out.print("Introduce el nombre del servicio: ");
-            String nombre = Entrada.leerString();
-            System.out.print("Introduce el precio del servicio: ");
-            double precio = Entrada.leerDouble();
-            System.out.print("Introduce la cantidad del servicio: ");
-            int cantidad = Entrada.leerEntero();
-            producto = new Servicio(nombre, nombre, precio, cantidad);
+            System.out.println("Opción inválida. No se pudo agregar el producto.");
         }
-        supers.agregarProducto(producto);
+    }
 
+    public static void venta() {
+        double total = 0.0;
+        String id = "";
+        String nombreCompleto = "";
+        String tarjeta = "";
+
+        String nombreProducto = "";
+        double subtotalConIva = 0;
+        int cantidad = 0;
+        double precioSinIva = 0;
+        double totalConIva = 0;
+        // Recorrer la lista de personal del supermercado
+        for (Personal personal : supers.getPersonales()) {
+
+            if (personal instanceof Socio) {
+                Socio socio = (Socio) personal;
+                id = socio.getIdSocio();
+                nombreCompleto = socio.getNombre() + " " + socio.getApellidos();
+
+                System.out.println("1. Tarjeta");
+                System.out.println("2. Efectivo");
+                System.out.print("Seleccione la forma de pago: ");
+                int opc = Entrada.leerEntero();
+
+                if (opc == 1) {
+                    System.out.println("Has elegido pagar con tarjeta.");
+                    tarjeta = socio.getNumTarjeta();
+                    // Formatear los últimos 4 dígitos de la tarjeta
+                    tarjeta = socio.formatearUltimosDigitos(tarjeta);
+                } else if (opc == 2) {
+                    System.out.println("Has elegido pagar en efectivo.");
+                }
+            } else if (personal instanceof Invitado) {
+                Invitado invitado = (Invitado) personal;
+                nombreCompleto = invitado.getNombre() + " " + invitado.getApellidos();
+                System.out.println("Compra como invitado");
+            }
+
+            // Recorrer la lista de productos del supermercado
+            for (Producto producto : supers.getProductos()) {
+                cantidad = producto.getCantidad();
+                nombreProducto = producto.getNombre();
+                precioSinIva = producto.getPrecio();
+
+                System.out.println("1. IVA Normal");
+                System.out.println("2. IVA Reducido");
+                System.out.println("3. IVA Superreducido");
+                System.out.print("Seleccione el tipo de IVA: ");
+                int opt = Entrada.leerEntero();
+
+                subtotalConIva = producto.calcularPrecioIVa(opt);
+                totalConIva = cantidad + subtotalConIva;
+                total += totalConIva;
+
+                // Mostrar detalle del producto en la compra
+
+            }
+        }
+        System.out.println(id);
+        System.out.println(nombreCompleto);
+        System.out.println(tarjeta.isEmpty() ? "No especificada" : tarjeta);
+        System.out.println(cantidad + " x " + nombreProducto + " - Precio sin IVA: " + precioSinIva
+                + " Subtotal con IVA: " + totalConIva);
+        System.out.println("TOTAL DE LA COMPRA: " + total);
     }
 
 }
