@@ -1,0 +1,104 @@
+@startuml tienda
+
+package es\madrid\parla\dam\prog{
+    package modelo{
+        class Supermercado{
+            -nombre:String
+            -direccion:String
+            -cif:String
+            -Personal:List
+            -productos:List
+            
+        }
+
+        class Cliente extends Personal {
+            -dirccion:String
+            - telefono:int
+        }
+        class Socio extends Cliente{
+            - id :String
+        }
+
+        class Invitado extends Cliente{
+
+        }
+
+        class Articulos extends Producto{
+
+        }
+
+        class Servicios extends Producto{
+
+        }
+
+        class Iva{
+        }
+
+        class Normal extends Iva{
+            + normal:int
+        }
+        class Reducido extends Iva{
+            + reducido:int
+        }
+        class SuperReducido extends Iva{
+            + superReducido:int
+        }
+
+        abstract class Personal{
+            nombre: String
+            apellidos: String
+        }
+
+        class Empleado extends Personal{
+            direccion: String
+            telefono: int
+
+        }
+
+        class Fruteria extends Empleado{
+
+        }
+
+        class Pescaderia extends Empleado{
+
+        }
+
+        class Carniceria extends Empleado{
+
+        }
+
+        class  Frescos extends Empleado{
+
+        }
+
+        class Bazar extends Empleado{
+
+        }
+
+        class Electrodomesticos extends Empleado{
+
+        }
+
+        class Limpieza extends Empleado{
+
+        }
+
+
+        class Producto{}
+
+    }
+
+    package ticket{
+        class Ticket{
+
+        }
+    }
+
+    Supermercado *.... Producto
+    Supermercado o....Personal
+    Supermercado ....o Ticket
+    Iva ....o Ticket
+}
+
+
+@enduml
