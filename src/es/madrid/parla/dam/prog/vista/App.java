@@ -130,7 +130,7 @@ public class App {
             System.out.println("Introduce la Fecha de inscripcion: ");
             String fechaInscripcion = Entrada.leerString();
 
-            Cliente cliente = (Cliente) FactoriaCliente.crearCliente(opc3);
+            Cliente cliente = FactoriaCliente.crearCliente(opc3);
             cliente.setNombre(nombre);
             cliente.setApellidos(apellido);
             cliente.setDirrexcion(direccion);
