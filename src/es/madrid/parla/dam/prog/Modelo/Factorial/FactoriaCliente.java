@@ -1,10 +1,10 @@
 package es.madrid.parla.dam.prog.Modelo.Factorial;
-import es.madrid.parla.dam.prog.Modelo.Invitado;
-import es.madrid.parla.dam.prog.Modelo.Personal;
+import es.madrid.parla.dam.prog.Modelo.Cliente;
+import es.madrid.parla.dam.prog.Modelo.Invitado;;
 import es.madrid.parla.dam.prog.Modelo.Socio;
 
 public class FactoriaCliente {
-    public static Personal crearCliente(int opc) {
+    public static Cliente crearCliente(int opc) {
         switch (opc) {
             case 1:
                 return new Socio();
