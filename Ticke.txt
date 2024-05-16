@@ -1,0 +1,5 @@
+ID del Socio: null
+Nombre del Cliente: s s
+Tarjeta de Crédito: **** **** **** 5558
+TOTAL DE LA COMPRA: 22.0
+Atendido por: ss - Zona: Frescos

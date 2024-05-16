@@ -119,22 +119,8 @@ public class Supermercados {
 
     }
 
-    public void generar() {
+ 
 
-        for (Personal personal : personales) {
-            if (personal instanceof Socio) {
-                ((Socio) personales).mostrar();
-            } else if (personal instanceof Invitado) {
-                ((Invitado) personales).mostrar();
-            }
-            {
-
-            }
-        }
-    }
-
-    public void comprar() {
-
-    }
+    
 
 }

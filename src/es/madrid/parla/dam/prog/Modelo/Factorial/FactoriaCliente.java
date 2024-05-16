@@ -1,6 +1,6 @@
 package es.madrid.parla.dam.prog.Modelo.Factorial;
 import es.madrid.parla.dam.prog.Modelo.Cliente;
-import es.madrid.parla.dam.prog.Modelo.Invitado;;
+import es.madrid.parla.dam.prog.Modelo.Invitado;
 import es.madrid.parla.dam.prog.Modelo.Socio;
 
 public class FactoriaCliente {
