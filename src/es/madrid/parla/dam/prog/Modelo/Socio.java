@@ -47,9 +47,6 @@ public class Socio extends Cliente {
 
     }
 
-    public void mostrar() {
-        System.out.println(TIPO + " " +  nombre + " " + apellidos + " " + dirrexcion + "  " + numTarjeta + " " + fechaInscripcion);
     
-    }
 
 }

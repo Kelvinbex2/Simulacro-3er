@@ -7,8 +7,8 @@ public class Invitado  extends Cliente{
         
     }
 
-    public Invitado(String nombre, String apellidos, String dirreccion, String telefono) {
-        super(nombre, apellidos, dirreccion, telefono);
+    public Invitado(String nombre, String apellidos, String dirreccion, String numTarjeta) {
+        super(nombre, apellidos, dirreccion, numTarjeta);
         //TODO Auto-generated constructor stub
     }
     

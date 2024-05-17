@@ -49,13 +49,14 @@ public class Producto {
     }
 
     public double calcularPrecioIVa(int opc) {
-        double preciosIva=0.0;
+        double preciosIva = 0.0;
+        double total = calcularPrecioSinIva();
         if (opc == 1) {
-            preciosIva = calcularPrecioSinIva() +(calcularPrecioSinIva()* Iva.IVANORMAL);
+            preciosIva = total + (total * Iva.IVANORMAL);
         } else if (opc == 2) {
-            preciosIva = calcularPrecioSinIva() +(calcularPrecioSinIva()* Iva.IVAREDUCIDO);
+            preciosIva = total + (total * Iva.IVAREDUCIDO);
         } else if (opc == 3) {
-            preciosIva = calcularPrecioSinIva() +(calcularPrecioSinIva()* Iva.IVASUPERREDUCIDO);
+            preciosIva = total + (total * Iva.IVASUPERREDUCIDO);
         } else {
             System.out.println("No se ha seleccionado ninguna opción");
         }
@@ -65,7 +66,5 @@ public class Producto {
     public double calcularPrecioSinIva() {
         return this.precio = precio * cantidad;
     }
-
-   
 
 }

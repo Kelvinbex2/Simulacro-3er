@@ -5,6 +5,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+
+import es.madrid.parla.dam.prog.Modelo.Articulos;
 import es.madrid.parla.dam.prog.Modelo.Bazar;
 import es.madrid.parla.dam.prog.Modelo.Carniceria;
 import es.madrid.parla.dam.prog.Modelo.Cliente;
@@ -133,21 +135,26 @@ public class App {
             String nombre = Entrada.leerString();
             System.out.print("Introduce el apellido del cliente: ");
             String apellido = Entrada.leerString();
-            System.out.println("Introduce el dirrecion del cliente: ");
+            System.out.print("Introduce el dirrecion del cliente: ");
             String direccion = Entrada.leerString();
-            System.out.println("Introduce el numTarjeta del cliente: ");
+            System.out.print("Introduce el numTarjeta del cliente: ");
             String numTarjeta = Entrada.leerString();
-            System.out.println("Introduce la Fecha de inscripcion: ");
+            while (numTarjeta.length() > 16) {
+                System.out.println("No puedes introduicr un numero mayor que 16");
+                System.out.print("Introduce el numTarjeta del cliente: ");
+                numTarjeta = Entrada.leerString();
+            }
+            System.out.print("Introduce la Fecha de inscripcion <yyyy-MM-dd>: ");
             String fechaInscripcion = Entrada.leerString();
 
             Cliente cliente = FactoriaCliente.crearCliente(opc3);
             cliente.setNombre(nombre);
             cliente.setApellidos(apellido);
             cliente.setDirrexcion(direccion);
+            cliente.setNumTarjeta(numTarjeta);
 
             if (cliente instanceof Socio) {
                 Socio socio = (Socio) cliente;
-                socio.setNumTarjeta(numTarjeta);
                 socio.setFechaInscripcion(fechaInscripcion);
             }
 
@@ -202,8 +209,9 @@ public class App {
         // Utilizar la factorial para crear el tipo de producto seleccionado
         producto = FactorialProducto.crearProducto(opcion);
 
-        if (producto != null) {
+        if (producto != null && producto instanceof Articulos) {
             // Pedir los detalles específicos del producto al usuario
+
             System.out.print("Introduce el nombre del producto: ");
             String nombre = Entrada.leerString();
             System.out.print("Introduce el precio del producto: ");
@@ -298,7 +306,7 @@ public class App {
                 int opt = Entrada.leerEntero();
 
                 subtotalConIva = producto.calcularPrecioIVa(opt);
-                totalConIva = cantidad * subtotalConIva;
+                totalConIva = subtotalConIva;
                 total += totalConIva;
 
             }
@@ -320,7 +328,7 @@ public class App {
             BufferedWriter writer = new BufferedWriter(new FileWriter(nombreArchivo));
             writer.write("ID del Socio: " + id + "\n");
             writer.write("Nombre del Cliente: " + nombreCompleto + "\n");
-            writer.write("Tarjeta de Crédito: " + (tarjeta.isEmpty() ? "No especificada" : tarjeta) + "\n");
+            writer.write("Tarjeta de Credito: " + (tarjeta.isEmpty() ? "No especificada" : tarjeta) + "\n");
             writer.write("TOTAL DE LA COMPRA: " + total + "\n");
             writer.write("Atendido por: " + nomEmp + " - Zona: " + puesto + "\n");
 

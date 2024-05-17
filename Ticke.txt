@@ -1,5 +1,5 @@
-ID del Socio: null
-Nombre del Cliente: s s
-Tarjeta de Crédito: **** **** **** 5558
-TOTAL DE LA COMPRA: 22.0
-Atendido por: ss - Zona: Frescos
+ID del Socio: DD-1-1-1
+Nombre del Cliente: dd ff
+Tarjeta de Crédito: **** **** **** 5555
+TOTAL DE LA COMPRA: 29.04
+Atendido por: dd - Zona: Bazar
